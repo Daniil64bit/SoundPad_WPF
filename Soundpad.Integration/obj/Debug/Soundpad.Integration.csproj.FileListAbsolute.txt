@@ -1,0 +1,13 @@
+C:\Users\11\Desktop\repos\SoundPad_WPF\Soundpad.Integration\bin\Debug\Soundpad.Integration.exe.config
+C:\Users\11\Desktop\repos\SoundPad_WPF\Soundpad.Integration\bin\Debug\Soundpad.Integration.exe
+C:\Users\11\Desktop\repos\SoundPad_WPF\Soundpad.Integration\bin\Debug\Soundpad.Integration.pdb
+C:\Users\11\Desktop\repos\SoundPad_WPF\Soundpad.Integration\bin\Debug\System.Data.SQLite.dll
+C:\Users\11\Desktop\repos\SoundPad_WPF\Soundpad.Integration\bin\Debug\System.Data.SQLite.xml
+C:\Users\11\Desktop\repos\SoundPad_WPF\Soundpad.Integration\obj\Debug\Soundpad.Integration.csproj.AssemblyReference.cache
+C:\Users\11\Desktop\repos\SoundPad_WPF\Soundpad.Integration\obj\Debug\Soundpad.Integration.csproj.SuggestedBindingRedirects.cache
+C:\Users\11\Desktop\repos\SoundPad_WPF\Soundpad.Integration\obj\Debug\Soundpad.Integration.csproj.CoreCompileInputs.cache
+C:\Users\11\Desktop\repos\SoundPad_WPF\Soundpad.Integration\obj\Debug\Soundpad.Integration.csproj.CopyComplete
+C:\Users\11\Desktop\repos\SoundPad_WPF\Soundpad.Integration\obj\Debug\Soundpad.Integration.exe
+C:\Users\11\Desktop\repos\SoundPad_WPF\Soundpad.Integration\obj\Debug\Soundpad.Integration.pdb
+C:\Users\11\Desktop\repos\SoundPad_WPF\Soundpad.Integration\bin\Debug\SoundPad.Core.dll
+C:\Users\11\Desktop\repos\SoundPad_WPF\Soundpad.Integration\bin\Debug\SoundPad.Core.pdb

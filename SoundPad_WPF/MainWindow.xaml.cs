@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using SoundPad.Core;
 using System;
 using System.Linq;
 using System.Media;
@@ -18,16 +19,13 @@ namespace SoundPad_WPF
         public MainWindow()
         {
             InitializeComponent();
-            DB = new AppContext();
         }
         int y;
-        private Size formOriginalSize;
-        private Rectangle recMP;
         SoundStuff soundStuff = new SoundStuff();
-        Key SoundKey;
+        public Key SoundKey;
         private bool keyNeeded;
-        AppContext DB;
         public MediaPlayer player = new MediaPlayer();
+
         public void Add_to_list()
         {
             y = 78 + SoundStuff.ID * 75;
@@ -150,6 +148,7 @@ namespace SoundPad_WPF
                 }
             }
         }
+
         private void set_key_btn_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
@@ -204,23 +203,12 @@ namespace SoundPad_WPF
             soundStuff = new SoundStuff();
         }
         
-        
-
-        private void Save_Sound(string Sound_Link, string Sound_Key, int Sound_ID)
-        {
-            SoundDB sound = new SoundDB(Sound_Link, Sound_Key, Sound_ID);
-            DB.SoundDBs.Add(sound);
-            DB.SaveChanges();
-
-            label1.Content = "Saved!";
-        }
-
         private void Save_btn_Click(object sender, RoutedEventArgs e)
         {
-            var children = SoundPack.Children.OfType<UIElement>().ToList();
-            foreach (SoundStuff soundStuff in children)
+            Sound_DataBase dataBase = new Sound_DataBase();
+            foreach (SoundStuff soundStuff in SoundPack.Children)
             {
-                Save_Sound(soundStuff.Link, Convert.ToString(soundStuff.Key), soundStuff.MyID);
+                dataBase.Save_Sound(soundStuff.Link, Convert.ToString(soundStuff.Key), soundStuff.MyID);
             }
         }
     }

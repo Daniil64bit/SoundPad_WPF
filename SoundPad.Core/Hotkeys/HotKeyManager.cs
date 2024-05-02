@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.Devices;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -100,6 +101,7 @@ namespace KeyDownTester.Keys
         /// Hotkey and matches their Modifier/Key. If they both match, and the hotkey allows
         /// the callback method to be called, it is called.
         /// </summary>
+        /*
         private static void CheckHotkeys()
         {
             if (RequiresModifierKey)
@@ -134,7 +136,7 @@ namespace KeyDownTester.Keys
                 }
             }
         }
-
+        */
         /// <summary>
         /// Finds and returns all hotkeys in the hotkeys list that have matching modifiers and keys given
         /// </summary>
@@ -225,8 +227,9 @@ namespace KeyDownTester.Keys
             // Checks if this is called from keydown only because key ups aren't used.
             if (nCode >= 0)
             {
+                /*
                 CheckHotkeys();
-
+                */
                 // Cannot use System.Windows' keys because
                 // they dont use the same values as windows
                 //int vkCode = Marshal.ReadInt32(lParam);
