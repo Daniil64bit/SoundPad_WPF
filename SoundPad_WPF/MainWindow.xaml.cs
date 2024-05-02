@@ -1,18 +1,11 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
+using System.Media;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SoundPad_WPF
@@ -25,6 +18,7 @@ namespace SoundPad_WPF
         public MainWindow()
         {
             InitializeComponent();
+            DB = new AppContext();
         }
         int y;
         private Size formOriginalSize;
@@ -32,70 +26,93 @@ namespace SoundPad_WPF
         SoundStuff soundStuff = new SoundStuff();
         Key SoundKey;
         private bool keyNeeded;
-
+        AppContext DB;
+        public MediaPlayer player = new MediaPlayer();
         public void Add_to_list()
         {
             y = 78 + SoundStuff.ID * 75;
             int link_y = 102 + SoundStuff.ID * 75;
             int sound_ID = SoundStuff.ID;
-            DesrLabel.Content sound_link = new Label();
-            sound_link.Location = new Point(1, 25);
-            sound_link.Size = new Size(80, 20);
-            sound_link.Text = $"Sound link№{SoundStuff.ID + 1}";
-            soundStuff.Controls.Add(sound_link);
-            Button add_sound_btn = new Button() { BackColor = Color.Green };
-            add_sound_btn.Size = new Size(50, 50);
-            add_sound_btn.Location = new Point(198, 4);
-            add_sound_btn.Text = "Add Sound";
+            System.Windows.Controls.Label sound_link = new System.Windows.Controls.Label();
+            sound_link.VerticalAlignment = VerticalAlignment.Top;
+            sound_link.HorizontalAlignment = HorizontalAlignment.Left;
+            sound_link.Width = 80;
+            sound_link.Height = 50;
+            sound_link.Content = $"Sound link№{SoundStuff.ID + 1}";
+            soundStuff.Children.Add(sound_link);
+            Button add_sound_btn = new Button();
+            add_sound_btn.Background = Brushes.Green;
+            add_sound_btn.VerticalAlignment = VerticalAlignment.Top;
+            add_sound_btn.HorizontalAlignment = HorizontalAlignment.Left;
+            add_sound_btn.Width = 50;
+            add_sound_btn.Height = 50;
+            add_sound_btn.Margin = new Thickness(80, 0, 0, 0);
+            add_sound_btn.Content = "Add Sound";
             add_sound_btn.Click += add_sound_btn_Click;
-            soundStuff.Controls.Add(add_sound_btn);
-            Button set_key_btn = new Button() { BackColor = Color.Green };
-            set_key_btn.Size = new Size(50, 50);
-            set_key_btn.Location = new Point(138, 4);
-            set_key_btn.Text = "Set Key";
+            soundStuff.Children.Add(add_sound_btn);
+            Button set_key_btn = new Button() {};
+            set_key_btn.Background = Brushes.Green;
+            set_key_btn.VerticalAlignment = VerticalAlignment.Top;
+            set_key_btn.HorizontalAlignment = HorizontalAlignment.Left;
+            set_key_btn.Width = 50;
+            set_key_btn.Height = 50;
+            set_key_btn.Margin = new Thickness(140, 0, 0, 0);
+            set_key_btn.Content = "Set Key";
             set_key_btn.Click += set_key_btn_Click;
-            soundStuff.Controls.Add(set_key_btn);
-            Button start_btn = new Button() { BackColor = Color.Yellow };
-            start_btn.Size = new Size(50, 50);
-            start_btn.Location = new Point(258, 4);
-            start_btn.Text = "Start";
+            soundStuff.Children.Add(set_key_btn);
+            Button start_btn = new Button();
+            start_btn.Background = Brushes.Yellow;
+            start_btn.VerticalAlignment = VerticalAlignment.Top;
+            start_btn.HorizontalAlignment = HorizontalAlignment.Left;
+            start_btn.Width = 50;
+            start_btn.Height = 50;
+            start_btn.Margin = new Thickness(200, 0, 0, 0);
+            start_btn.Content = "Start";
             start_btn.Click += start_btn_Click;
-            soundStuff.Controls.Add(start_btn);
-            Button stop_btn = new Button() { BackColor = Color.Yellow };
-            stop_btn.Size = new Size(50, 50);
-            stop_btn.Location = new Point(318, 4);
-            stop_btn.Text = "Stop";
+            soundStuff.Children.Add(start_btn);
+            Button stop_btn = new Button();
+            stop_btn.Background = Brushes.Yellow;
+            stop_btn.VerticalAlignment = VerticalAlignment.Top;
+            stop_btn.HorizontalAlignment = HorizontalAlignment.Left;
+            stop_btn.Width = 50;
+            stop_btn.Height = 50;
+            stop_btn.Margin = new Thickness(260, 0, 0, 0);
+            stop_btn.Content = "Stop";
             stop_btn.Click += stop_btn_Click;
-            soundStuff.Controls.Add(stop_btn);
-            Button delete_btn = new Button() { BackColor = Color.Red };
-            delete_btn.Size = new Size(50, 50);
-            delete_btn.Location = new Point(378, 4);
-            delete_btn.Text = "Delete";
+            soundStuff.Children.Add(stop_btn);
+            Button delete_btn = new Button();
+            delete_btn.Background = Brushes.Red;
+            delete_btn.VerticalAlignment = VerticalAlignment.Top;
+            delete_btn.HorizontalAlignment = HorizontalAlignment.Left;
+            delete_btn.Width = 50;
+            delete_btn.Height = 50;
+            delete_btn.Margin = new Thickness(320, 0, 0, 0);
+            delete_btn.Content = "Delete";
             delete_btn.Click += delete_btn_Click;
-            soundStuff.Controls.Add(delete_btn);
-            soundStuff.Size = new Size(427, 54);
-            soundStuff.Location = new Point(361, y);
-            SoundPack.Controls.Add(soundStuff);
+            soundStuff.Children.Add(delete_btn);
+            soundStuff.Width = 427;
+            soundStuff.Height = 54;
+            SoundPack.Children.Add(soundStuff);
             soundStuff.IDUp();
             soundStuff = new SoundStuff();
         }
-
-        private void New_Sound_Btn_Click(object sender, EventArgs e)
+        private void New_Sound_Btn_Click(object sender, RoutedEventArgs e)
         {
             Add_to_list();
         }
-
         private void start_btn_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
-            foreach (SoundStuff soundStuff in SoundPack.Controls)
+            var children = SoundPack.Children.OfType<UIElement>().ToList();
+            foreach (SoundStuff soundStuff in children)
             {
-                if (soundStuff.Controls.Contains(btn))
+                if (soundStuff.Children.Contains(btn))
                 {
-                    if (this.soundStuff.Link != null)
+                    if (soundStuff.Link != "")
                     {
-                        Test_Sound.URL = soundStuff.Link;
-                        Test_Sound.Ctlcontrols.play();
+                        Uri MediaSource = new Uri(soundStuff.Link);
+                        player.Open(MediaSource);
+                        player.Play();
                     }
                 }
             }
@@ -104,13 +121,14 @@ namespace SoundPad_WPF
         private void stop_btn_Click(Object sender, EventArgs e)
         {
             Button btn = sender as Button;
-            foreach (SoundStuff soundStuff in SoundPack.Controls)
+            var children = SoundPack.Children.OfType<UIElement>().ToList();
+            foreach (SoundStuff soundStuff in children)
             {
-                if (soundStuff.Controls.Contains(btn))
+                if (soundStuff.Children.Contains(btn))
                 {
-                    if (this.soundStuff.Link != null)
+                    if (soundStuff.Link != null)
                     {
-                        Test_Sound.Ctlcontrols.stop();
+                        player.Stop();
                     }
                 }
             }
@@ -119,12 +137,13 @@ namespace SoundPad_WPF
         private void add_sound_btn_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
-            foreach (SoundStuff soundStuff in SoundPack.Controls)
+            var children = SoundPack.Children.OfType<UIElement>().ToList();
+            foreach (SoundStuff soundStuff in children)
             {
-                if (soundStuff.Controls.Contains(btn))
+                if (soundStuff.Children.Contains(btn))
                 {
                     OpenFileDialog opf = new OpenFileDialog();
-                    if (opf.ShowDialog() == DialogResult.OK)
+                    if (opf.ShowDialog() == true)
                     {
                         soundStuff.Link = opf.FileName;
                     }
@@ -134,100 +153,74 @@ namespace SoundPad_WPF
         private void set_key_btn_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
-            foreach (SoundStuff soundStuff in SoundPack.Controls)
+            var children = SoundPack.Children.OfType<UIElement>().ToList();
+            foreach (SoundStuff soundStuff in children)
             {
-                if (soundStuff.Controls.Contains(btn))
+                if (soundStuff.Children.Contains(btn))
                 {
                     soundStuff.Key = SoundKey;
-                    btn.Text = Convert.ToString(soundStuff.Key);
+                    btn.Content = Convert.ToString(soundStuff.Key);
+                    
                 }
             }
             keyNeeded = true;
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        private void PreviewKeyDown(object sender, KeyEventArgs e)
         {
+            var children = SoundPack.Children.OfType<UIElement>().ToList();
             if (keyNeeded)
             {
-                SoundKey = e.KeyCode;
+                SoundKey = e.Key;
 
                 keyNeeded = false;
             }
             if (!keyNeeded)
             {
-                foreach (SoundStuff soundStuff in SoundPack.Controls)
+                foreach (SoundStuff soundStuff in children)
                 {
-                    if (soundStuff.Key == e.KeyCode)
+                    if (soundStuff.Key == e.Key)
                     {
-                        Test_Sound.URL = soundStuff.Link;
-                        Test_Sound.Ctlcontrols.play();
+                        Uri MediaSource = new Uri(soundStuff.Link);
+                        player.Open(MediaSource);
+                        player.Play();
                     }
                 }
             }
         }
+
         private void delete_btn_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
-            foreach (SoundStuff soundStuff in SoundPack.Controls)
+            var children = SoundPack.Children.OfType<UIElement>().ToList();
+            foreach (SoundStuff soundStuff in children)
             {
-                if (soundStuff.Controls.Contains(btn))
+                if (soundStuff.Children.Contains(btn))
                 {
-                    SoundPack.Controls.Remove(soundStuff);
-                    Test_Sound.Ctlcontrols.stop();
+                    SoundPack.Children.Remove(soundStuff);
+                    player.Stop();
                 }
             }
             soundStuff = new SoundStuff();
         }
+        
+        
 
-        private void DataBaseCall()
+        private void Save_Sound(string Sound_Link, string Sound_Key, int Sound_ID)
         {
-            var connection = new SQLiteConnection("E:\\Data Bases\\Test.db");
-            connection.Open();
-            label1.Text = "Connected!";
+            SoundDB sound = new SoundDB(Sound_Link, Sound_Key, Sound_ID);
+            DB.SoundDBs.Add(sound);
+            DB.SaveChanges();
+
+            label1.Content = "Saved!";
         }
 
-        public Form1()
+        private void Save_btn_Click(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
-            this.Resize += Form1_Resize;
-            formOriginalSize = this.Size;
-            recMP = new Rectangle(Test_Sound.Location, Test_Sound.Size);
-        }
-
-        void Form1_Resize(object sender, EventArgs e)
-        {
-            Resize_Control(Test_Sound, recMP);
-        }
-
-        private void Resize_Control(Control c, Rectangle r)
-        {
-            float xRatio = (float)(this.Width) / (float)(formOriginalSize.Width);
-            float yRatio = (float)(this.Height) / (float)(formOriginalSize.Height);
-            int newX = (int)(r.X * xRatio);
-            int newY = (int)(r.Y * yRatio);
-
-            int newWidth = (int)(r.Width * xRatio);
-            int newHeight = (int)(r.Height * yRatio);
-
-            c.Location = new Point(newX, newY);
-            c.Size = new Size(newWidth, newHeight);
-
-        }
-
-        private void Select_video_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Sound_List_Click(object sender, EventArgs e)
-        {
-            if (Test_Sound.Visible == false)
+            var children = SoundPack.Children.OfType<UIElement>().ToList();
+            foreach (SoundStuff soundStuff in children)
             {
-                Test_Sound.Visible = true;
-            }
-            else
-            {
-                Test_Sound.Visible = false;
+                Save_Sound(soundStuff.Link, Convert.ToString(soundStuff.Key), soundStuff.MyID);
             }
         }
     }

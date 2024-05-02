@@ -12,10 +12,12 @@
             <ColumnDefinition Width="351*"/>
         </Grid.ColumnDefinitions>
         <Button x:Name="Sounds_Btn" Content="Sounds" Margin="632,10,10,364" Grid.Column="1" />
-        <Button x:Name="New_Sound_Btn" Content="New Sound" Margin="500,10,90,364" Grid.Column="1" />
+        <Button x:Name="New_Sound_Btn" Content="New Sound" Margin="500,10,90,364" Grid.Column="1" Click="New_Sound_Btn_Click" />
         <Button x:Name="Options_Btn" Content="Options" Margin="10,10,28,364" />
         <WrapPanel x:Name="SoundPack" HorizontalAlignment="Left" Height="345" Margin="302,79,0,0" VerticalAlignment="Top" Width="390" Grid.Column="1"/>
-        <MediaElement x:Name="Player" HorizontalAlignment="Left" Height="60" Margin="10,79,0,0" VerticalAlignment="Top" Width="60"/>
+        <Label x:Name="label1" Grid.Column="1" Content="Label" HorizontalAlignment="Left" Height="16" Margin="10,408,0,0" VerticalAlignment="Top" Width="106"/>
+        <Grid Margin="0,70,10,0" Grid.Column="1"/>
+        <Button x:Name="Save_btn" Content="Save" Margin="422,10,220,364" Grid.Column="1" Click="Save_btn_Click" />
 
     </Grid>
 </Window>

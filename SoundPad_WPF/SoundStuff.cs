@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace SoundPad_WPF
 {
-    internal class SoundStuff
+    internal class SoundStuff : Grid
     {
         private int myID;
         private static int _ID = 0;
