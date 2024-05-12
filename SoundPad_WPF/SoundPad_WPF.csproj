@@ -104,11 +104,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AppContext.cs" />
-    <Compile Include="HotKeys.cs" />
-    <Compile Include="Hotkeys\GlobalHotkey.cs" />
-    <Compile Include="Hotkeys\HotKeyManager.cs" />
-    <Compile Include="SoundDB.cs" />
     <Compile Include="SoundStuff.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -158,6 +153,12 @@
     <Content Include="Scripts\jquery-1.4.2.min.js" />
     <Content Include="Scripts\jquery.hotkeys.js" />
     <Content Include="Scripts\jquery.hotkeys.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SoundPad.Core\SoundPad.Core.csproj">
+      <Project>{415e4a56-9343-4b27-b3c4-d6a012ab6030}</Project>
+      <Name>SoundPad.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

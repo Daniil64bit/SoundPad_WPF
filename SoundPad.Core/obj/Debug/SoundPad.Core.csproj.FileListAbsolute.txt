@@ -1,0 +1,9 @@
+C:\Users\11\Desktop\repos\SoundPad_WPF\SoundPad.Core\obj\Debug\SoundPad.Core.csproj.AssemblyReference.cache
+C:\Users\11\Desktop\repos\SoundPad_WPF\SoundPad.Core\obj\Debug\SoundPad.Core.csproj.CoreCompileInputs.cache
+C:\Users\11\Desktop\repos\SoundPad_WPF\SoundPad.Core\bin\Debug\SoundPad.Core.dll
+C:\Users\11\Desktop\repos\SoundPad_WPF\SoundPad.Core\bin\Debug\SoundPad.Core.pdb
+C:\Users\11\Desktop\repos\SoundPad_WPF\SoundPad.Core\bin\Debug\System.Data.SQLite.dll
+C:\Users\11\Desktop\repos\SoundPad_WPF\SoundPad.Core\bin\Debug\System.Data.SQLite.xml
+C:\Users\11\Desktop\repos\SoundPad_WPF\SoundPad.Core\obj\Debug\SoundPad.Core.csproj.CopyComplete
+C:\Users\11\Desktop\repos\SoundPad_WPF\SoundPad.Core\obj\Debug\SoundPad.Core.dll
+C:\Users\11\Desktop\repos\SoundPad_WPF\SoundPad.Core\obj\Debug\SoundPad.Core.pdb
