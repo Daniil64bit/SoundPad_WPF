@@ -1,4 +1,6 @@
-﻿using Microsoft.Win32;
+﻿using SoundPad_WPF.Hotkeys;
+using Microsoft.Win32;
+using NAudio.Wave;
 using System;
 using System.Linq;
 using System.Media;
@@ -7,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+
 
 namespace SoundPad_WPF
 {
@@ -19,6 +22,8 @@ namespace SoundPad_WPF
         {
             InitializeComponent();
             DB = new AppContext();
+            HotkeysManager.SetupSystemHook();
+            Closing += MainWindow_Closing;
         }
         int y;
         private Size formOriginalSize;
@@ -28,6 +33,8 @@ namespace SoundPad_WPF
         private bool keyNeeded;
         AppContext DB;
         public MediaPlayer player = new MediaPlayer();
+        int CurrentID;
+        Button CurrentBtn = new Button();
         public void Add_to_list()
         {
             y = 78 + SoundStuff.ID * 75;
@@ -158,28 +165,64 @@ namespace SoundPad_WPF
             {
                 if (soundStuff.Children.Contains(btn))
                 {
-                    soundStuff.Key = SoundKey;
-                    btn.Content = Convert.ToString(soundStuff.Key);
-                    
+                    CurrentID = soundStuff.MyID;
+                    CurrentBtn = btn;
+                    //KeysDown(soundStuff);
                 }
             }
             keyNeeded = true;
         }
-
-        private void PreviewKeyDown(object sender, KeyEventArgs e)
+        private void KeysDown(object sender, KeyEventArgs e)
         {
-            var children = SoundPack.Children.OfType<UIElement>().ToList();
             if (keyNeeded)
             {
-                SoundKey = e.Key;
+                WaveOut waveOut = new WaveOut();
+                IWavePlayer wavePlayer = new WasapiOut(NAudio.CoreAudioApi.AudioClientShareMode.Shared, 100);
 
+                SoundKey = e.Key;
+                
+                HotkeysManager.AddHotkey(ModifierKeys.None, e.Key, () =>
+                {
+                    var children = SoundPack.Children.OfType<UIElement>().ToList();
+                    foreach (SoundStuff soundStuff in children)
+                    {
+                        if (soundStuff.Link != "")
+                        {
+                            AudioFileReader audioFileReader = new AudioFileReader(soundStuff.Link);
+                            waveOut.Init(audioFileReader);
+                            waveOut.Play();
+                        }
+                    }
+                });
+                var child = SoundPack.Children.OfType<UIElement>().ToList();
+                foreach (SoundStuff soundStuff in child)
+                {
+                    if (soundStuff.MyID == CurrentID)
+                    {
+                        soundStuff.Key = e.Key;
+                    }
+                }
+                CurrentBtn.Content = Convert.ToString(e.Key);
                 keyNeeded = false;
+                //KeysDown(soundStuff);
             }
+        }
+        /*
+        private void KeysDown(SoundStuff sound)
+        {
+            var children = SoundPack.Children.OfType<UIElement>().ToList();
+            if (!keyNeeded)
+            {
+                SoundKey = sound.Key;
+
+                
+            }
+            /*
             if (!keyNeeded)
             {
                 foreach (SoundStuff soundStuff in children)
                 {
-                    if (soundStuff.Key == e.Key)
+                    if (soundStuff.Key == sound.Key)
                     {
                         Uri MediaSource = new Uri(soundStuff.Link);
                         player.Open(MediaSource);
@@ -187,7 +230,9 @@ namespace SoundPad_WPF
                     }
                 }
             }
+           
         }
+    */
 
         private void delete_btn_Click(object sender, EventArgs e)
         {
@@ -222,6 +267,10 @@ namespace SoundPad_WPF
             {
                 Save_Sound(soundStuff.Link, Convert.ToString(soundStuff.Key), soundStuff.MyID);
             }
+        }
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            HotkeysManager.ShutdownSystemHook();
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Windows.Documents;
 using System.Windows.Input;
 
-namespace KeyDownTester.Keys
+namespace SoundPad_WPF.Hotkeys
 {
     /// <summary>
     /// A hotkey containing a key combination (a key and modifier key) and a

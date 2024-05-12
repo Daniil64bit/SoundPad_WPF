@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 
-namespace KeyDownTester.Keys
+namespace SoundPad_WPF.Hotkeys
 {
     /// <summary>
     /// A class for adding/removing global hotkeys to and from your application, 
@@ -102,9 +102,9 @@ namespace KeyDownTester.Keys
         /// </summary>
         private static void CheckHotkeys()
         {
-            if (RequiresModifierKey)
+            if (!RequiresModifierKey)
             {
-                if (Keyboard.Modifiers != ModifierKeys.None)
+                if (Keyboard.Modifiers == ModifierKeys.None)
                 {
                     foreach (GlobalHotkey hotkey in Hotkeys)
                     {
