@@ -1,13 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace SoundPad_WPF.Hotkeys
+namespace SoundPad_WPF_8.HotKeys
 {
-    /// <summary>
-    /// A hotkey containing a key combination (a key and modifier key) and a
-    /// callback function that gets called if the right keys are down. Also contains a
-    /// boolean stating if the callback method can be called or not.
-    /// </summary>
     public class GlobalHotkey
     {
         /// <summary>

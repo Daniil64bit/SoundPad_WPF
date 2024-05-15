@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualBasic.Devices;
+﻿using SoundPad_WPF_8.HotKeys;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 
-namespace SoundPad_WPF.Hotkeys
+namespace SoundPad_WPF_8.HotKeys
 {
     /// <summary>
     /// A class for adding/removing global hotkeys to and from your application, 
