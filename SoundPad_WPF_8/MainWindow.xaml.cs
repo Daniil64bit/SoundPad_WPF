@@ -1,16 +1,16 @@
-﻿using SoundPad_WPF_8.HotKeys;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using NAudio.Wave;
+using SoundPad_WPF_8.HotKeys;
 using System;
 using System.Linq;
-using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using SO;
+using System.Data.SQLite;
 using System.Reflection.Emit;
-using SoundPad_WPF_New;
 
 
 namespace SoundPad_WPF_8
@@ -23,19 +23,21 @@ namespace SoundPad_WPF_8
         public MainWindow()
         {
             InitializeComponent();
+            for(int i = 0; i <= Save_Count; i++) { }
+            var result = SoundDataBase.Get_Data();
+            New_Sound(result);
             HotkeysManager.SetupSystemHook();
             Closing += MainWindow_Closing;
         }
         int y;
-        private Size formOriginalSize;
-        private Rectangle recMP;
         SoundStuff soundStuff = new SoundStuff();
         Key SoundKey;
         private bool keyNeeded;
         public MediaPlayer player = new MediaPlayer();
         int CurrentID;
         Button CurrentBtn = new Button();
-        public void Add_to_list()
+        int Save_Count;
+        public void New_Sound(string[] data = null)
         {
             y = 78 + SoundStuff.ID * 75;
             int link_y = 102 + SoundStuff.ID * 75;
@@ -105,7 +107,7 @@ namespace SoundPad_WPF_8
         }
         private void New_Sound_Btn_Click(object sender, RoutedEventArgs e)
         {
-            Add_to_list();
+            New_Sound();
         }
         private void start_btn_Click(object sender, EventArgs e)
         {
@@ -178,7 +180,6 @@ namespace SoundPad_WPF_8
             {
                 WaveOut waveOut = new WaveOut();
                 IWavePlayer wavePlayer = new WasapiOut(NAudio.CoreAudioApi.AudioClientShareMode.Shared, 100);
-
                 SoundKey = e.Key;
 
                 HotkeysManager.AddHotkey(ModifierKeys.None, e.Key, () =>
@@ -248,23 +249,17 @@ namespace SoundPad_WPF_8
             }
             soundStuff = new SoundStuff();
         }
-
-
-        /*
-        private void Save_Sound()
-        {
-
-        }
-        /*
         private void Save_btn_Click(object sender, RoutedEventArgs e)
         {
+
             var children = SoundPack.Children.OfType<UIElement>().ToList();
             foreach (SoundStuff soundStuff in children)
             {
-                Save_Sound(soundStuff.Link, Convert.ToString(soundStuff.Key), soundStuff.MyID);
+                Save_Count++;
+                SoundDataBase.Save_Sound(soundStuff.Link, Convert.ToString(soundStuff.Key), soundStuff.MyID);
             }
         }
-        */
+
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             HotkeysManager.ShutdownSystemHook();

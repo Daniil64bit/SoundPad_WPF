@@ -101,22 +101,18 @@ namespace SoundPad_WPF_8.HotKeys
         /// Hotkey and matches their Modifier/Key. If they both match, and the hotkey allows
         /// the callback method to be called, it is called.
         /// </summary>
-        /*
         private static void CheckHotkeys()
         {
-            if (!RequiresModifierKey)
+            if (RequiresModifierKey && Keyboard.Modifiers == ModifierKeys.None)
             {
-                if (Keyboard.Modifiers == ModifierKeys.None)
+                foreach (GlobalHotkey hotkey in Hotkeys)
                 {
-                    foreach (GlobalHotkey hotkey in Hotkeys)
+                    if (Keyboard.Modifiers == hotkey.Modifier && Keyboard.IsKeyDown(hotkey.Key))
                     {
-                        if (Keyboard.Modifiers == hotkey.Modifier && Keyboard.IsKeyDown(hotkey.Key))
+                        if (hotkey.CanExecute)
                         {
-                            if (hotkey.CanExecute)
-                            {
-                                hotkey.Callback?.Invoke();
-                                HotkeyFired?.Invoke(hotkey);
-                            }
+                            hotkey.Callback?.Invoke();
+                            HotkeyFired?.Invoke(hotkey);
                         }
                     }
                 }
@@ -136,7 +132,7 @@ namespace SoundPad_WPF_8.HotKeys
                 }
             }
         }
-        */
+
         /// <summary>
         /// Finds and returns all hotkeys in the hotkeys list that have matching modifiers and keys given
         /// </summary>
@@ -227,9 +223,7 @@ namespace SoundPad_WPF_8.HotKeys
             // Checks if this is called from keydown only because key ups aren't used.
             if (nCode >= 0)
             {
-                /*
                 CheckHotkeys();
-                */
                 // Cannot use System.Windows' keys because
                 // they dont use the same values as windows
                 //int vkCode = Marshal.ReadInt32(lParam);

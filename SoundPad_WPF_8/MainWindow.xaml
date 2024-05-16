@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:SoundPad_WPF_8"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid KeyDown="KeysDown">
         <Button x:Name="Sounds_Btn" Content="Sounds" HorizontalAlignment="Left" Height="60" Margin="730,10,0,0" VerticalAlignment="Top" Width="60"/>
         <Button x:Name="New_Sound_Btn" Content="New Sound" HorizontalAlignment="Left" Height="60" Margin="600,10,0,0" VerticalAlignment="Top" Width="110" Click="New_Sound_Btn_Click"/>
-        <Button x:Name="Save_Btn" Content="Save" HorizontalAlignment="Left" Height="60" Margin="520,10,0,0" VerticalAlignment="Top" Width="60" Click="Save_Btn_Click"/>
+        <Button x:Name="Save_Btn" Content="Save" HorizontalAlignment="Left" Height="60" Margin="520,10,0,0" VerticalAlignment="Top" Width="60" Click="Save_btn_Click"/>
         <Button x:Name="Options_Btn" Content="Options" HorizontalAlignment="Left" Height="60" Margin="10,10,0,0" VerticalAlignment="Top" Width="60"/>
         <StackPanel x:Name="SoundPack" HorizontalAlignment="Left" Height="345" Margin="400,79,0,0" VerticalAlignment="Top" Width="390"/>
 

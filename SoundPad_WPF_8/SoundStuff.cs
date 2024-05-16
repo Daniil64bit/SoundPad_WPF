@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace SoundPad_WPF_New
+namespace SoundPad_WPF_8
 {
     public class SoundStuff : Grid
     {
