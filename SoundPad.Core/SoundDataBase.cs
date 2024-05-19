@@ -25,7 +25,7 @@ namespace SO
             try
             {
                 int Count = 0;
-                string relativePath = @"C:\Users\Danill64bit\Documents\GitHub\SoundPad_WPF\SoundPad_DB.db";
+                string relativePath = @"C:\Users\11\Desktop\repos\SoundPad_WPF\SoundPad_DB.db";
                 var parentDir = Path.GetDirectoryName(AppContext.BaseDirectory);
                 string tmp = parentDir.Remove(parentDir.Length - 10, 10);
                 string absolutePath = Path.Combine(tmp, relativePath);
@@ -57,7 +57,7 @@ namespace SO
             SQLiteConnection connection;
             try
             {
-                string relativePath = @"C:\Users\Danill64bit\Documents\GitHub\SoundPad_WPF\SoundPad_DB.db";
+                string relativePath = @"C:\Users\11\Desktop\repos\SoundPad_WPF\SoundPad_DB.db";
                 var parentDir = Path.GetDirectoryName(AppContext.BaseDirectory);
                 string tmp = parentDir.Remove(parentDir.Length - 10, 10);
                 string absolutePath = Path.Combine(tmp, relativePath);
@@ -90,7 +90,7 @@ namespace SO
                 List<string> LinkList = new List<string>();
                 List<string> KeyList = new List<string>();
                 List<List<string>> Sounds = new List<List<string>>();
-                string relativePath = @"C:\Users\Danill64bit\Documents\GitHub\SoundPad_WPF\SoundPad_DB.db";
+                string relativePath = @"C:\Users\11\Desktop\repos\SoundPad_WPF\SoundPad_DB.db";
                 var parentDir = Path.GetDirectoryName(AppContext.BaseDirectory);
                 string tmp = parentDir.Remove(parentDir.Length - 10, 10);
                 string absolutePath = Path.Combine(tmp, relativePath);
@@ -128,7 +128,7 @@ namespace SO
             SQLiteConnection connection;
             try
             {
-                string relativePath = @"C:\Users\Danill64bit\Documents\GitHub\SoundPad_WPF\SoundPad_DB.db";
+                string relativePath = @"C:\Users\11\Desktop\repos\SoundPad_WPF\SoundPad_DB.db";
                 var parentDir = Path.GetDirectoryName(AppContext.BaseDirectory);
                 string tmp = parentDir.Remove(parentDir.Length - 10, 10);
                 string absolutePath = Path.Combine(tmp, relativePath);
@@ -153,7 +153,7 @@ namespace SO
             SQLiteConnection connection;
             try
             {
-                string relativePath = @"C:\Users\Danill64bit\Documents\GitHub\SoundPad_WPF\SoundPad_DB.db";
+                string relativePath = @"C:\Users\11\Desktop\repos\SoundPad_WPF\SoundPad_DB.db";
                 var parentDir = Path.GetDirectoryName(AppContext.BaseDirectory);
                 string tmp = parentDir.Remove(parentDir.Length - 10, 10);
                 string absolutePath = Path.Combine(tmp, relativePath);
