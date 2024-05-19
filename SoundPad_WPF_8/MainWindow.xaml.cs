@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using SO;
 using System.Data.SQLite;
 using System.Reflection.Emit;
+using System.Collections.Generic;
 
 
 namespace SoundPad_WPF_8
@@ -23,25 +24,25 @@ namespace SoundPad_WPF_8
         public MainWindow()
         {
             InitializeComponent();
-            for(int i = 0; i <= Save_Count; i++) { }
+            Sound_Count = SoundDataBase.Get_Count();
             var result = SoundDataBase.Get_Data();
-            New_Sound(result);
+            for (int i = 1; i <= Sound_Count; i++)
+            {
+                New_Sound(result[0], result[1]);
+                SoundStuff.Upload_HotKey(result[1], result[0]);
+            }
             HotkeysManager.SetupSystemHook();
             Closing += MainWindow_Closing;
         }
-        int y;
         SoundStuff soundStuff = new SoundStuff();
-        Key SoundKey;
+        Key SoundKey = Key.NoName;
         private bool keyNeeded;
         public MediaPlayer player = new MediaPlayer();
         int CurrentID;
         Button CurrentBtn = new Button();
-        int Save_Count;
-        public void New_Sound(string[] data = null)
+        int Sound_Count = 0;
+        public void New_Sound(List<string> linkData = null, List<string> keyData = null)
         {
-            y = 78 + SoundStuff.ID * 75;
-            int link_y = 102 + SoundStuff.ID * 75;
-            int sound_ID = SoundStuff.ID;
             System.Windows.Controls.Label sound_link = new System.Windows.Controls.Label();
             sound_link.VerticalAlignment = VerticalAlignment.Top;
             sound_link.HorizontalAlignment = HorizontalAlignment.Left;
@@ -66,7 +67,14 @@ namespace SoundPad_WPF_8
             set_key_btn.Width = 50;
             set_key_btn.Height = 50;
             set_key_btn.Margin = new Thickness(140, 0, 0, 0);
-            set_key_btn.Content = "Set Key";
+            if (keyData != null)
+            {
+                set_key_btn.Content = keyData[0];
+            }
+            else
+            {
+                set_key_btn.Content = "Set Key";
+            }
             set_key_btn.Click += set_key_btn_Click;
             soundStuff.Children.Add(set_key_btn);
             Button start_btn = new Button();
@@ -101,9 +109,25 @@ namespace SoundPad_WPF_8
             soundStuff.Children.Add(delete_btn);
             soundStuff.Width = 427;
             soundStuff.Height = 54;
+            if (linkData != null)
+            {
+                soundStuff.Link = linkData[0];
+            }
+            if (keyData != null)
+            {
+                soundStuff.Key = ConvertFromString(keyData[0]);
+            }
             SoundPack.Children.Add(soundStuff);
             soundStuff.IDUp();
             soundStuff = new SoundStuff();
+        }
+        public static Key ConvertFromString(string keystr)
+        {
+            if (keystr != "Set Key")
+            {
+                return (Key)Enum.Parse(typeof(Key), keystr);
+            }
+        return Key.None;
         }
         private void New_Sound_Btn_Click(object sender, RoutedEventArgs e)
         {
@@ -151,12 +175,31 @@ namespace SoundPad_WPF_8
             {
                 if (soundStuff.Children.Contains(btn))
                 {
+                    CurrentID = soundStuff.MyID;
+                    string OldLink = soundStuff.Link;
                     OpenFileDialog opf = new OpenFileDialog();
                     if (opf.ShowDialog() == true)
                     {
                         soundStuff.Link = opf.FileName;
+                        SoundStuff.Delete_HotKey(soundStuff.Key);
+                        foreach (string link in SoundStuff.HotKeyLinks)
+                        {
+                            if (link == OldLink)
+                            {
+                                int index = SoundStuff.HotKeyLinks.IndexOf(OldLink);
+                                SoundKey = SoundStuff.HotKeys[index];
+                                SoundStuff.HotKeys.RemoveAt(index);
+                                SoundStuff.HotKeyLinks.RemoveAt(index);
+                                break;
+                            }
+                        }
+                        if (soundStuff.MyID == CurrentID)
+                        {
+                            SoundStuff.New_HotKey(SoundKey, soundStuff.Link);
+                        }
                     }
                 }
+                SoundKey = Key.NoName;
             }
         }
         private void set_key_btn_Click(object sender, EventArgs e)
@@ -178,23 +221,48 @@ namespace SoundPad_WPF_8
         {
             if (keyNeeded)
             {
-                WaveOut waveOut = new WaveOut();
-                IWavePlayer wavePlayer = new WasapiOut(NAudio.CoreAudioApi.AudioClientShareMode.Shared, 100);
                 SoundKey = e.Key;
-
-                HotkeysManager.AddHotkey(ModifierKeys.None, e.Key, () =>
+                string constLink = Convert.ToString(CurrentBtn.Content);
+                Key OldKey = ConvertFromString(constLink);
+                var children = SoundPack.Children.OfType<UIElement>().ToList();
+                foreach (SoundStuff soundStuff in children)
                 {
-                    var children = SoundPack.Children.OfType<UIElement>().ToList();
-                    foreach (SoundStuff soundStuff in children)
+                    if (SoundStuff.HotKeys != null && SoundStuff.HotKeys.Contains(OldKey))
                     {
-                        if (soundStuff.Link != "")
+                        SoundStuff.Delete_HotKey(OldKey);
+                        foreach (Key key in SoundStuff.HotKeys)
                         {
-                            AudioFileReader audioFileReader = new AudioFileReader(soundStuff.Link);
-                            waveOut.Init(audioFileReader);
-                            waveOut.Play();
+                            if(key == OldKey)
+                            {
+                                int index = SoundStuff.HotKeys.IndexOf(OldKey);
+                                SoundStuff.HotKeys.RemoveAt(index);
+                                SoundStuff.HotKeyLinks.RemoveAt(index);
+                                break;
+                            }
                         }
                     }
-                });
+                    else if (SoundStuff.HotKeys.Contains(Key.NoName))
+                    {
+                        SoundStuff.Delete_HotKey(Key.NoName);
+                        foreach (Key key in SoundStuff.HotKeys)
+                        {
+                            if (key == Key.NoName)
+                            {
+                                int index = SoundStuff.HotKeys.IndexOf(Key.NoName);
+                                SoundStuff.HotKeys.RemoveAt(index);
+                                SoundStuff.HotKeyLinks.RemoveAt(index);
+                                break;
+                            }
+                        }
+                    }
+
+                    if (soundStuff.MyID == CurrentID)
+                    {
+                        constLink = soundStuff.Link;
+                        SoundStuff.New_HotKey(SoundKey, constLink);
+                    }
+                }
+
                 var child = SoundPack.Children.OfType<UIElement>().ToList();
                 foreach (SoundStuff soundStuff in child)
                 {
@@ -205,35 +273,8 @@ namespace SoundPad_WPF_8
                 }
                 CurrentBtn.Content = Convert.ToString(e.Key);
                 keyNeeded = false;
-                //KeysDown(soundStuff);
             }
         }
-        /*
-        private void KeysDown(SoundStuff sound)
-        {
-            var children = SoundPack.Children.OfType<UIElement>().ToList();
-            if (!keyNeeded)
-            {
-                SoundKey = sound.Key;
-
-                
-            }
-            /*
-            if (!keyNeeded)
-            {
-                foreach (SoundStuff soundStuff in children)
-                {
-                    if (soundStuff.Key == sound.Key)
-                    {
-                        Uri MediaSource = new Uri(soundStuff.Link);
-                        player.Open(MediaSource);
-                        player.Play();
-                    }
-                }
-            }
-           
-        }
-    */
 
         private void delete_btn_Click(object sender, EventArgs e)
         {
@@ -243,6 +284,13 @@ namespace SoundPad_WPF_8
             {
                 if (soundStuff.Children.Contains(btn))
                 {
+                    if(SoundStuff.HotKeyLinks.Contains(soundStuff.Link) && SoundStuff.HotKeys.Contains(soundStuff.Key))
+                    {
+                        int index = SoundStuff.HotKeys.IndexOf(soundStuff.Key);
+                        SoundStuff.Delete_HotKey(soundStuff.Key);
+                        SoundStuff.HotKeys.RemoveAt(index);
+                        SoundStuff.HotKeyLinks.RemoveAt(index);
+                    }
                     SoundPack.Children.Remove(soundStuff);
                     player.Stop();
                 }
@@ -251,11 +299,12 @@ namespace SoundPad_WPF_8
         }
         private void Save_btn_Click(object sender, RoutedEventArgs e)
         {
-
+            SoundDataBase.Delete_Sound();
+            Sound_Count = 0;
             var children = SoundPack.Children.OfType<UIElement>().ToList();
             foreach (SoundStuff soundStuff in children)
             {
-                Save_Count++;
+                Sound_Count++;
                 SoundDataBase.Save_Sound(soundStuff.Link, Convert.ToString(soundStuff.Key), soundStuff.MyID);
             }
         }
@@ -263,6 +312,7 @@ namespace SoundPad_WPF_8
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             HotkeysManager.ShutdownSystemHook();
+            SoundDataBase.Update_Count(Sound_Count);
         }
 
         private void Save_Btn_Click(object sender, RoutedEventArgs e)

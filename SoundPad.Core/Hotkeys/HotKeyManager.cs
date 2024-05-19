@@ -103,16 +103,19 @@ namespace SoundPad_WPF_8.HotKeys
         /// </summary>
         private static void CheckHotkeys()
         {
-            if (RequiresModifierKey && Keyboard.Modifiers == ModifierKeys.None)
+            if (!RequiresModifierKey)
             {
-                foreach (GlobalHotkey hotkey in Hotkeys)
+                if (Keyboard.Modifiers == ModifierKeys.None)
                 {
-                    if (Keyboard.Modifiers == hotkey.Modifier && Keyboard.IsKeyDown(hotkey.Key))
+                    foreach (GlobalHotkey hotkey in Hotkeys)
                     {
-                        if (hotkey.CanExecute)
+                        if (Keyboard.Modifiers == hotkey.Modifier && Keyboard.IsKeyDown(hotkey.Key))
                         {
-                            hotkey.Callback?.Invoke();
-                            HotkeyFired?.Invoke(hotkey);
+                            if (hotkey.CanExecute)
+                            {
+                                hotkey.Callback?.Invoke();
+                                HotkeyFired?.Invoke(hotkey);
+                            }
                         }
                     }
                 }
