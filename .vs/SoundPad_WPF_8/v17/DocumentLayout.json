@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{B4E15F1D-E568-4C99-8C00-0C4BD78F297F}|SoundPad_WPF_8\\SoundPad_WPF_8.csproj|solutionrelative:soundpad_wpf_8\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{B4E15F1D-E568-4C99-8C00-0C4BD78F297F}|SoundPad_WPF_8\\SoundPad_WPF_8.csproj|C:\\Users\\Danill64bit\\Documents\\GitHub\\SoundPad_WPF\\soundpad_wpf_8\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B4E15F1D-E568-4C99-8C00-0C4BD78F297F}|SoundPad_WPF_8\\SoundPad_WPF_8.csproj|solutionrelative:soundpad_wpf_8\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B4E15F1D-E568-4C99-8C00-0C4BD78F297F}|SoundPad_WPF_8\\SoundPad_WPF_8.csproj|c:\\users\\danill64bit\\documents\\github\\soundpad_wpf\\soundpad_wpf_8\\soundstuff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B4E15F1D-E568-4C99-8C00-0C4BD78F297F}|SoundPad_WPF_8\\SoundPad_WPF_8.csproj|solutionrelative:soundpad_wpf_8\\soundstuff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -21,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{9C32DE6C-2C2D-45B9-97CB-1EC7CDA55440}|SoundPad.Core\\SoundPad.Core.csproj|C:\\Users\\Danill64bit\\Documents\\GitHub\\SoundPad_WPF\\soundpad.core\\hotkeys\\globalhotkey.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9C32DE6C-2C2D-45B9-97CB-1EC7CDA55440}|SoundPad.Core\\SoundPad.Core.csproj|solutionrelative:soundpad.core\\hotkeys\\globalhotkey.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B4E15F1D-E568-4C99-8C00-0C4BD78F297F}|SoundPad_WPF_8\\SoundPad_WPF_8.csproj|C:\\Users\\Danill64bit\\Documents\\GitHub\\SoundPad_WPF\\soundpad_wpf_8\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{B4E15F1D-E568-4C99-8C00-0C4BD78F297F}|SoundPad_WPF_8\\SoundPad_WPF_8.csproj|solutionrelative:soundpad_wpf_8\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,12 +34,8 @@
       "DocumentGroups": [
         {
           "DockedHeight": 47,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -48,27 +44,31 @@
               "RelativeDocumentMoniker": "SoundPad_WPF_8\\MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\Danill64bit\\Documents\\GitHub\\SoundPad_WPF\\SoundPad_WPF_8\\MainWindow.xaml.cs",
               "RelativeToolTip": "SoundPad_WPF_8\\MainWindow.xaml.cs",
-              "ViewState": "AQIAALcAAAAAAAAAAAAAwMsAAAAJAAAA",
+              "ViewState": "AQIAAF0AAAAAAAAAAAAowHgAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-14T14:34:02.026Z",
               "EditorCaption": ""
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "SoundStuff.cs",
               "DocumentMoniker": "C:\\Users\\Danill64bit\\Documents\\GitHub\\SoundPad_WPF\\SoundPad_WPF_8\\SoundStuff.cs",
               "RelativeDocumentMoniker": "SoundPad_WPF_8\\SoundStuff.cs",
               "ToolTip": "C:\\Users\\Danill64bit\\Documents\\GitHub\\SoundPad_WPF\\SoundPad_WPF_8\\SoundStuff.cs",
               "RelativeToolTip": "SoundPad_WPF_8\\SoundStuff.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB0AAAAAAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAB0AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-14T14:43:04.799Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "SoundDataBase.cs",
               "DocumentMoniker": "C:\\Users\\Danill64bit\\Documents\\GitHub\\SoundPad_WPF\\SoundPad.Core\\SoundDataBase.cs",
               "RelativeDocumentMoniker": "SoundPad.Core\\SoundDataBase.cs",
@@ -81,7 +81,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "HotKeyManager.cs",
               "DocumentMoniker": "C:\\Users\\Danill64bit\\Documents\\GitHub\\SoundPad_WPF\\SoundPad.Core\\HotKeys\\HotKeyManager.cs",
               "RelativeDocumentMoniker": "SoundPad.Core\\HotKeys\\HotKeyManager.cs",
@@ -89,11 +89,12 @@
               "RelativeToolTip": "SoundPad.Core\\HotKeys\\HotKeyManager.cs",
               "ViewState": "AQIAAKMAAAAAAAAAAAAQwMcAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-14T14:40:54.238Z"
+              "WhenOpened": "2024-05-14T14:40:54.238Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "GlobalHotKey.cs",
               "DocumentMoniker": "C:\\Users\\Danill64bit\\Documents\\GitHub\\SoundPad_WPF\\SoundPad.Core\\HotKeys\\GlobalHotKey.cs",
               "RelativeDocumentMoniker": "SoundPad.Core\\HotKeys\\GlobalHotKey.cs",
@@ -105,14 +106,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\Danill64bit\\Documents\\GitHub\\SoundPad_WPF\\SoundPad_WPF_8\\MainWindow.xaml",
               "RelativeDocumentMoniker": "SoundPad_WPF_8\\MainWindow.xaml",
               "ToolTip": "C:\\Users\\Danill64bit\\Documents\\GitHub\\SoundPad_WPF\\SoundPad_WPF_8\\MainWindow.xaml",
               "RelativeToolTip": "SoundPad_WPF_8\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-05-14T14:34:04.354Z"
+              "WhenOpened": "2024-05-14T14:34:04.354Z",
+              "EditorCaption": ""
             }
           ]
         },

@@ -5,13 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SoundPad_WPF_8"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Background ="#b5b5b5">
+        
     <Grid KeyDown="KeysDown">
-        <Button x:Name="Sounds_Btn" Content="Sounds" HorizontalAlignment="Left" Height="60" Margin="730,10,0,0" VerticalAlignment="Top" Width="60"/>
-        <Button x:Name="New_Sound_Btn" Content="New Sound" HorizontalAlignment="Left" Height="60" Margin="600,10,0,0" VerticalAlignment="Top" Width="110" Click="New_Sound_Btn_Click"/>
-        <Button x:Name="Save_Btn" Content="Save" HorizontalAlignment="Left" Height="60" Margin="520,10,0,0" VerticalAlignment="Top" Width="60" Click="Save_btn_Click"/>
+        <Button x:Name="Sounds_Btn" Content="Sounds" HorizontalAlignment="Left" Height="60" Margin="730,10,0,0" VerticalAlignment="Top" Width="60" Click="Sounds_Btn_Click"/>
+        <Button x:Name="New_Sound_Btn" Content="New Sound" HorizontalAlignment="Left" Height="60" Margin="520,10,0,0" VerticalAlignment="Top" Width="110" Click="New_Sound_Btn_Click"/>
+        <Button x:Name="Save_Btn" Content="Save" HorizontalAlignment="Left" Height="60" Margin="650,10,0,0" VerticalAlignment="Top" Width="60" Click="Save_btn_Click"/>
         <Button x:Name="Options_Btn" Content="Options" HorizontalAlignment="Left" Height="60" Margin="10,10,0,0" VerticalAlignment="Top" Width="60"/>
-        <StackPanel x:Name="SoundPack" HorizontalAlignment="Left" Height="345" Margin="400,79,0,0" VerticalAlignment="Top" Width="390"/>
-
+        <Grid x:Name="ContentPanel" Margin="-10,0,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="87*"/>
+                <RowDefinition Height="259*"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="388,80,-9,0">
+                <StackPanel x:Name="SoundPack" Height="Auto" Width="442" RenderTransformOrigin="0.494,0.504"/>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Window>

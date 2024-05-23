@@ -41,6 +41,7 @@ namespace SoundPad_WPF_8
         int CurrentID;
         Button CurrentBtn = new Button();
         int Sound_Count = 0;
+        BrushConverter bc = new BrushConverter();
         public void New_Sound(List<string> linkData = null, List<string> keyData = null)
         {
             System.Windows.Controls.Label sound_link = new System.Windows.Controls.Label();
@@ -106,9 +107,15 @@ namespace SoundPad_WPF_8
             delete_btn.Margin = new Thickness(320, 0, 0, 0);
             delete_btn.Content = "Delete";
             delete_btn.Click += delete_btn_Click;
+            var border = new Border();
             soundStuff.Children.Add(delete_btn);
             soundStuff.Width = 427;
             soundStuff.Height = 54;
+            soundStuff.Margin = new Thickness(0, 1, 0, 0);
+            soundStuff.Background = (Brush)bc.ConvertFrom("#2980f2");
+            border.BorderBrush = (Brush)bc.ConvertFrom("#2980f2");
+            border.BorderThickness = new Thickness(2);
+            soundStuff.Children.Add(border);
             if (linkData != null)
             {
                 soundStuff.Link = linkData[0];
@@ -315,9 +322,18 @@ namespace SoundPad_WPF_8
             SoundDataBase.Update_Count(Sound_Count);
         }
 
-        private void Save_Btn_Click(object sender, RoutedEventArgs e)
+        private void Sounds_Btn_Click(object sender, RoutedEventArgs e)
         {
-
+            if(ContentPanel.Visibility == Visibility.Visible)
+            {
+                ContentPanel.Visibility = Visibility.Hidden;
+                New_Sound_Btn.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                ContentPanel.Visibility = Visibility.Visible;
+                New_Sound_Btn.Visibility = Visibility.Visible;
+            }
         }
     }
 }
