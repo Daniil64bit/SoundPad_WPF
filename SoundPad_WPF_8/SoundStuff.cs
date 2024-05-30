@@ -17,7 +17,7 @@ namespace SoundPad_WPF_8
     {
         private int myID;
         private static int _ID = 0;
-        private string _link = "C:\\Users\\11\\Desktop\\repos\\SoundPad_WPF\\Sounds\\silent.wav";
+        private string _link = "C:\\Users\\Danill64bit\\Documents\\GitHub\\SoundPad_WPF\\Sounds\\silent.wav";
         private Key key;
         public static List<string> HotKeyLinks = new List<string>();
         public static List<Key> HotKeys = new List<Key>();
@@ -31,33 +31,6 @@ namespace SoundPad_WPF_8
         {
 
         }
-
-        public static void Start()
-        {
-            /*
-            string OutputName = config["OutputName"] as string;
-            if (string.IsNullOrWhiteSpace(OutputName))
-                OutputName = "<default>";
-
-            MMDevice device = null;
-
-            if (OutputName == "<default>")
-            {
-                device = new MMDeviceEnumerator().GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-            }
-            else
-            {
-                foreach (MMDevice dev in new MMDeviceEnumerator().EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active))
-                {
-                    if (dev.ID == OutputName)
-                    {
-                        device = dev;
-                        break;
-                    }
-                }
-            }
-            */
-        }
         public void IDUp()
         {
             myID = _ID;
@@ -65,13 +38,17 @@ namespace SoundPad_WPF_8
         }
         public static void New_HotKey(Key HotKey, string HotKeyLink = "")
         {
-            WaveOut waveOut = new WaveOut();
+            WaveOut waveOut = new WaveOut() {DeviceNumber = 1 };
             IWavePlayer wavePlayer = new WasapiOut(NAudio.CoreAudioApi.AudioClientShareMode.Shared, 100);
             HotkeysManager.AddHotkey(ModifierKeys.None, HotKey, () =>
             {
                 AudioFileReader audioFileReader = new AudioFileReader(HotKeyLink);
+                audioFileReader.Volume = 0.5f;
                 waveOut.Init(audioFileReader);
                 waveOut.Play();
+                Uri MediaSource = new Uri(HotKeyLink);
+                player.Open(MediaSource);
+                player.Play();
             });
             HotKeyLinks.Add(HotKeyLink);
             HotKeys.Add(HotKey);
@@ -84,7 +61,7 @@ namespace SoundPad_WPF_8
                 HotKey = MainWindow.ConvertFromString(HotKeyData[0]);
                 HotKeyData.RemoveAt(0);
             }
-            string HotKeyLink = "C:\\Users\\11\\Desktop\\repos\\SoundPad_WPF\\Sounds\\silent.wav";
+            string HotKeyLink = "C:\\Users\\Danill64bit\\Documents\\GitHub\\SoundPad_WPF\\Sounds\\silent.wav";
             if (HotKeyLinkData != null)
             {
                 HotKeyLink = HotKeyLinkData[0];
@@ -98,9 +75,9 @@ namespace SoundPad_WPF_8
                 AudioFileReader audioFileReader = new AudioFileReader(HotKeyLink);
                 waveOut.Init(audioFileReader);
                 waveOut.Play();
-                //Uri MediaSource = new Uri(HotKeyLink);
-                //player.Open(MediaSource);
-                //player.Play();
+                Uri MediaSource = new Uri(HotKeyLink);
+                player.Open(MediaSource);
+                player.Play();
             });
             HotKeyLinks.Add(HotKeyLink);
             HotKeys.Add(HotKey);

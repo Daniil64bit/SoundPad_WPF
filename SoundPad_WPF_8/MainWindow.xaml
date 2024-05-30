@@ -11,7 +11,6 @@
         <Button x:Name="Sounds_Btn" Content="Sounds" HorizontalAlignment="Left" Height="60" Margin="730,10,0,0" VerticalAlignment="Top" Width="60" Click="Sounds_Btn_Click"/>
         <Button x:Name="New_Sound_Btn" Content="New Sound" HorizontalAlignment="Left" Height="60" Margin="520,10,0,0" VerticalAlignment="Top" Width="110" Click="New_Sound_Btn_Click"/>
         <Button x:Name="Save_Btn" Content="Save" HorizontalAlignment="Left" Height="60" Margin="650,10,0,0" VerticalAlignment="Top" Width="60" Click="Save_btn_Click"/>
-        <Button x:Name="Options_Btn" Content="Options" HorizontalAlignment="Left" Height="60" Margin="10,10,0,0" VerticalAlignment="Top" Width="60"/>
         <Grid x:Name="ContentPanel" Margin="-10,0,10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0*"/>

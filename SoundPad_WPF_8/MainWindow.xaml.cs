@@ -12,13 +12,11 @@ using SO;
 using System.Data.SQLite;
 using System.Reflection.Emit;
 using System.Collections.Generic;
+using NAudio.CoreAudioApi;
 
 
 namespace SoundPad_WPF_8
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -112,8 +110,8 @@ namespace SoundPad_WPF_8
             soundStuff.Width = 427;
             soundStuff.Height = 54;
             soundStuff.Margin = new Thickness(0, 1, 0, 0);
-            soundStuff.Background = (Brush)bc.ConvertFrom("#2980f2");
-            border.BorderBrush = (Brush)bc.ConvertFrom("#2980f2");
+            soundStuff.Background = (Brush)bc.ConvertFrom("#fcb65b");
+            border.BorderBrush = (Brush)bc.ConvertFrom("#a294ff");
             border.BorderThickness = new Thickness(2);
             soundStuff.Children.Add(border);
             if (linkData != null)
