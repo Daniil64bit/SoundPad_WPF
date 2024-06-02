@@ -131,3 +131,4 @@ C:\Users\Danill64bit\Documents\GitHub\SoundPad_WPF\SoundPad_WPF_8\obj\Debug\Soun
 C:\Users\Danill64bit\Documents\GitHub\SoundPad_WPF\SoundPad_WPF_8\obj\Debug\SoundPad.DA910564.Up2Date
 C:\Users\Danill64bit\Documents\GitHub\SoundPad_WPF\SoundPad_WPF_8\obj\Debug\SoundPad_WPF_8.exe
 C:\Users\Danill64bit\Documents\GitHub\SoundPad_WPF\SoundPad_WPF_8\obj\Debug\SoundPad_WPF_8.pdb
+C:\Users\Danill64bit\Documents\GitHub\SoundPad_WPF\SoundPad_WPF_8\obj\Debug\SoundPad_WPF_8.csproj.ResolveComReference.cache

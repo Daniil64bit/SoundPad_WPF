@@ -9,6 +9,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using NAudio.CoreAudioApi;
+using System.Windows.Documents;
+
 
 namespace SoundPad_WPF_8
 {
@@ -38,17 +40,26 @@ namespace SoundPad_WPF_8
         }
         public static void New_HotKey(Key HotKey, string HotKeyLink = "")
         {
-            WaveOut waveOut = new WaveOut() {DeviceNumber = 1 };
+            WaveOut waveOut = new WaveOut() {DeviceNumber = 0 };
             IWavePlayer wavePlayer = new WasapiOut(NAudio.CoreAudioApi.AudioClientShareMode.Shared, 100);
             HotkeysManager.AddHotkey(ModifierKeys.None, HotKey, () =>
             {
                 AudioFileReader audioFileReader = new AudioFileReader(HotKeyLink);
                 audioFileReader.Volume = 0.5f;
                 waveOut.Init(audioFileReader);
-                waveOut.Play();
                 Uri MediaSource = new Uri(HotKeyLink);
-                player.Open(MediaSource);
-                player.Play();
+                if (waveOut.PlaybackState == PlaybackState.Playing)
+                {
+                    waveOut.Stop();
+                    //player.Stop();
+                }
+                else if (waveOut.PlaybackState == PlaybackState.Stopped)
+                {
+                    player.Open(MediaSource);
+                    waveOut.Play();
+                    //player.Play();
+                }
+                
             });
             HotKeyLinks.Add(HotKeyLink);
             HotKeys.Add(HotKey);
@@ -67,17 +78,26 @@ namespace SoundPad_WPF_8
                 HotKeyLink = HotKeyLinkData[0];
                 HotKeyLinkData.RemoveAt(0);
             }
-
-            WaveOut waveOut = new WaveOut() { DeviceNumber = 1 };
+            WaveOut waveOut = new WaveOut() { DeviceNumber = 0 };
             IWavePlayer wavePlayer = new WasapiOut(NAudio.CoreAudioApi.AudioClientShareMode.Shared, 100);
             HotkeysManager.AddHotkey(ModifierKeys.None, HotKey, () =>
             {
+                PlaybackState playback = waveOut.PlaybackState;
                 AudioFileReader audioFileReader = new AudioFileReader(HotKeyLink);
                 waveOut.Init(audioFileReader);
-                waveOut.Play();
+                audioFileReader.Volume = 0.5f;
                 Uri MediaSource = new Uri(HotKeyLink);
-                player.Open(MediaSource);
-                player.Play();
+                if (playback == PlaybackState.Playing)
+                {
+                    waveOut.Stop();
+                    //player.Stop();
+                }
+                else if (playback == PlaybackState.Stopped)
+                {
+                    player.Open(MediaSource);
+                    waveOut.Play();
+                    //player.Play();
+                }
             });
             HotKeyLinks.Add(HotKeyLink);
             HotKeys.Add(HotKey);
