@@ -10,27 +10,45 @@ using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using SoundPad_WPF_8;
 using System.Windows;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 
 
 //namespace SoundPad_WPF_8.Sound_DataBase
-namespace SO
+namespace Sound_DataBase
 {
     public class SoundDataBase
     {
-        
-        public void _Init<T>(T item) { }
+        public static string GetSilentSoundPath()
+        {
+            string relativePath = @"..\..\..\SoundPad.Core\SoundResource\silent.wav";
+            string absolutePath = Path.GetFullPath(relativePath);
+            return absolutePath;
+        }
+        public static List<string> GetDefault()
+        {
+            string relativePath = @"..\..\..\SoundResource";
+            string absolutePath = Path.GetFullPath(relativePath);
+
+            try
+            {
+                return Directory.GetFiles(absolutePath).Select(x => absolutePath + "\\" + x).ToList();
+            }
+            catch (Exception ex)
+            {
+                return new List<string>();
+            }
+
+        }
         public static int Get_Count()
         {
             SQLiteConnection connection;
             try
             {
                 int Count = 0;
-                string relativePath = @"C:\Users\Danill64bit\Documents\GitHub\SoundPad_WPF\SoundPad_DB.db";
-                var parentDir = Path.GetDirectoryName(AppContext.BaseDirectory);
-                string tmp = parentDir.Remove(parentDir.Length - 10, 10);
-                string absolutePath = Path.Combine(tmp, relativePath);
+                string relativePath = @"..\..\..\SoundPad_DB.db";
+                string absolutePath = Path.GetFullPath(relativePath);
                 string connectionString = string.Format("Data Source = {0};Version=3; FailIfMissing=False", absolutePath);
-
                 connection = new SQLiteConnection(connectionString);
                 connection.Open();
                 string sql = $"SELECT Sound_Count FROM \"Sound_Count_DB\";";
@@ -57,12 +75,10 @@ namespace SO
             SQLiteConnection connection;
             try
             {
-                string relativePath = @"C:\Users\Danill64bit\Documents\GitHub\SoundPad_WPF\SoundPad_DB.db";
+                string relativePath = @"..\..\..\SoundPad_DB.db";
                 var parentDir = Path.GetDirectoryName(AppContext.BaseDirectory);
-                string tmp = parentDir.Remove(parentDir.Length - 10, 10);
-                string absolutePath = Path.Combine(tmp, relativePath);
+                string absolutePath = Path.GetFullPath(relativePath);
                 string connectionString = string.Format("Data Source = {0};Version=3; FailIfMissing=False", absolutePath);
-
                 connection = new SQLiteConnection(connectionString);
                 connection.Open();
                 string sql = $"DELETE FROM \"Sound_Count_DB\";";
@@ -90,12 +106,9 @@ namespace SO
                 List<string> LinkList = new List<string>();
                 List<string> KeyList = new List<string>();
                 List<List<string>> Sounds = new List<List<string>>();
-                string relativePath = @"C:\Users\Danill64bit\Documents\GitHub\SoundPad_WPF\SoundPad_DB.db";
-                var parentDir = Path.GetDirectoryName(AppContext.BaseDirectory);
-                string tmp = parentDir.Remove(parentDir.Length - 10, 10);
-                string absolutePath = Path.Combine(tmp, relativePath);
+                string relativePath = @"..\..\..\SoundPad_DB.db";
+                string absolutePath = Path.GetFullPath(relativePath);
                 string connectionString = string.Format("Data Source = {0};Version=3; FailIfMissing=False", absolutePath);
-
                 connection = new SQLiteConnection(connectionString);
                 connection.Open();
                 string sql = $"SELECT * FROM Sound_DB";
@@ -128,12 +141,9 @@ namespace SO
             SQLiteConnection connection;
             try
             {
-                string relativePath = @"C:\Users\Danill64bit\Documents\GitHub\SoundPad_WPF\SoundPad_DB.db";
-                var parentDir = Path.GetDirectoryName(AppContext.BaseDirectory);
-                string tmp = parentDir.Remove(parentDir.Length - 10, 10);
-                string absolutePath = Path.Combine(tmp, relativePath);
+                string relativePath = @"..\..\..\SoundPad_DB.db";
+                string absolutePath = Path.GetFullPath(relativePath);
                 string connectionString = string.Format("Data Source = {0};Version=3; FailIfMissing=False", absolutePath);
-
                 connection = new SQLiteConnection(connectionString);
                 connection.Open();
                 string sql = $"INSERT INTO \"Sound_DB\" (Sound_Link, Sound_Key, Sound_ID) VALUES(\"{sound_link}\", \"{sound_key}\", \"{sound_id}\");";
@@ -153,10 +163,8 @@ namespace SO
             SQLiteConnection connection;
             try
             {
-                string relativePath = @"C:\Users\Danill64bit\Documents\GitHub\SoundPad_WPF\SoundPad_DB.db";
-                var parentDir = Path.GetDirectoryName(AppContext.BaseDirectory);
-                string tmp = parentDir.Remove(parentDir.Length - 10, 10);
-                string absolutePath = Path.Combine(tmp, relativePath);
+                string relativePath = @"..\..\..\SoundPad_DB.db";
+                string absolutePath = Path.GetFullPath(relativePath);
                 string connectionString = string.Format("Data Source = {0};Version=3; FailIfMissing=False", absolutePath);
 
                 connection = new SQLiteConnection(connectionString);

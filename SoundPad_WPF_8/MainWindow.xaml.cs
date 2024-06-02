@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using SO;
+using Sound_DataBase;
 using System.Data.SQLite;
 using System.Reflection.Emit;
 using System.Collections.Generic;
@@ -43,15 +43,15 @@ namespace SoundPad_WPF_8
         public void New_Sound(List<string> linkData = null, List<string> keyData = null)
         {
             System.Windows.Controls.Label sound_link = new System.Windows.Controls.Label();
-            sound_link.VerticalAlignment = VerticalAlignment.Top;
+            sound_link.VerticalAlignment = VerticalAlignment.Center;
             sound_link.HorizontalAlignment = HorizontalAlignment.Left;
-            sound_link.Width = 80;
-            sound_link.Height = 50;
-            sound_link.Content = $"Sound link№{SoundStuff.ID + 1}";
+            sound_link.Width = 100;
+            sound_link.Height = 30;
+            sound_link.Content = $"Sound №{SoundStuff.ID + 1}";
             soundStuff.Children.Add(sound_link);
             Button add_sound_btn = new Button();
             add_sound_btn.Background = Brushes.Green;
-            add_sound_btn.VerticalAlignment = VerticalAlignment.Top;
+            add_sound_btn.VerticalAlignment = VerticalAlignment.Center;
             add_sound_btn.HorizontalAlignment = HorizontalAlignment.Left;
             add_sound_btn.Width = 50;
             add_sound_btn.Height = 50;
@@ -61,7 +61,7 @@ namespace SoundPad_WPF_8
             soundStuff.Children.Add(add_sound_btn);
             Button set_key_btn = new Button() { };
             set_key_btn.Background = Brushes.Green;
-            set_key_btn.VerticalAlignment = VerticalAlignment.Top;
+            set_key_btn.VerticalAlignment = VerticalAlignment.Center;
             set_key_btn.HorizontalAlignment = HorizontalAlignment.Left;
             set_key_btn.Width = 50;
             set_key_btn.Height = 50;
@@ -78,7 +78,7 @@ namespace SoundPad_WPF_8
             soundStuff.Children.Add(set_key_btn);
             Button start_btn = new Button();
             start_btn.Background = Brushes.Yellow;
-            start_btn.VerticalAlignment = VerticalAlignment.Top;
+            start_btn.VerticalAlignment = VerticalAlignment.Center;
             start_btn.HorizontalAlignment = HorizontalAlignment.Left;
             start_btn.Width = 50;
             start_btn.Height = 50;
@@ -88,7 +88,7 @@ namespace SoundPad_WPF_8
             soundStuff.Children.Add(start_btn);
             Button stop_btn = new Button();
             stop_btn.Background = Brushes.Yellow;
-            stop_btn.VerticalAlignment = VerticalAlignment.Top;
+            stop_btn.VerticalAlignment = VerticalAlignment.Center;
             stop_btn.HorizontalAlignment = HorizontalAlignment.Left;
             stop_btn.Width = 50;
             stop_btn.Height = 50;
@@ -98,7 +98,7 @@ namespace SoundPad_WPF_8
             soundStuff.Children.Add(stop_btn);
             Button delete_btn = new Button();
             delete_btn.Background = Brushes.Red;
-            delete_btn.VerticalAlignment = VerticalAlignment.Top;
+            delete_btn.VerticalAlignment = VerticalAlignment.Center;
             delete_btn.HorizontalAlignment = HorizontalAlignment.Left;
             delete_btn.Width = 50;
             delete_btn.Height = 50;
@@ -108,7 +108,7 @@ namespace SoundPad_WPF_8
             var border = new Border();
             soundStuff.Children.Add(delete_btn);
             soundStuff.Width = 427;
-            soundStuff.Height = 54;
+            soundStuff.Height = 64;
             soundStuff.Margin = new Thickness(0, 1, 0, 0);
             soundStuff.Background = (Brush)bc.ConvertFrom("#fcb65b");
             border.BorderBrush = (Brush)bc.ConvertFrom("#a294ff");

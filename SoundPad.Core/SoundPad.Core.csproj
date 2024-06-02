@@ -67,7 +67,13 @@
     <Compile Include="SoundDataBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="SoundResource\ispantsyi-dikiy-krik.mp3" />
+    <Content Include="SoundResource\NOT_a_rickroll.mp3" />
+    <Content Include="SoundResource\padenie-truby.mp3" />
+    <Content Include="SoundResource\silent.wav" />
+    <Content Include="SoundResource\wait-wait-wait-what-the-hell-from-lukas.mp3" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
