@@ -154,16 +154,15 @@ namespace Sound_DataBase
                 string connectionString = string.Format("Data Source = {0};Version=3; FailIfMissing=False", absolutePath);
                 connection = new SQLiteConnection(connectionString);
                 connection.Open();
-                string sql = $"SELECT * FROM Sound_DB";
+                string sql = $"SELECT Sound_Data FROM Sound_DB WHERE Sound_ID = {Convert.ToInt32(SoundID[ID])}";
                 string outputFilePath = @"..\..\..\TempSounds\Temp_Sound_" + Convert.ToString(SoundNumber) + ".mp3";
-                sql = $"SELECT Sound_Data FROM Sound_DB WHERE Sound_ID = {Convert.ToInt32(SoundID[ID])}";
                 using (SQLiteCommand cmd = new SQLiteCommand(sql, connection))
                 {
                     using (SQLiteDataReader rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())
                         {
-                            byte[] fileData = File.ReadAllBytes(@"..\..\..\SoundPad.Core\SoundResource\NOT_a_rickroll.mp3");
+                            byte[] fileData = File.ReadAllBytes();
                             using (FileStream fs = new FileStream(outputFilePath, FileMode.Create, FileAccess.Write))
                             {
                                 fs.Write(fileData, 0, fileData.Length);
@@ -186,15 +185,15 @@ namespace Sound_DataBase
                 string relativePath = @"..\..\..\SoundPad_DB.db";
                 string absolutePath = Path.GetFullPath(relativePath);
                 string connectionString = string.Format("Data Source = {0};Version=3; FailIfMissing=False", absolutePath);
-                byte[] fileData;
+                byte[] soundData;
                 using (FileStream fs = new FileStream(sound_link, FileMode.Open, FileAccess.Read))
                 {
-                    fileData = new byte[fs.Length];
-                    fs.Read(fileData, 0, (int)fs.Length);
+                    soundData = File.ReadAllBytes(sound_link);
+                    fs.Read(soundData, 0, (int)fs.Length);
                 }
                 connection = new SQLiteConnection(connectionString);
                 connection.Open();
-                string sql = $"INSERT INTO \"Sound_DB\" (Sound_Name, Sound_Data, Sound_Key, Sound_ID) VALUES(\"{sound_link}\", \"{fileData}\", \"{sound_key}\", \"{sound_id}\");";
+                string sql = $"INSERT INTO \"Sound_DB\" (Sound_Name, Sound_Data, Sound_Key, Sound_ID) VALUES(\"{sound_link}\", \"{soundData}\", \"{sound_key}\", \"{sound_id}\");";
                 using (SQLiteCommand cmd = new SQLiteCommand(sql, connection))
                 {
                     cmd.ExecuteNonQuery();

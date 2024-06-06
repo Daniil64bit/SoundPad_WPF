@@ -23,16 +23,17 @@ namespace SoundPad_WPF_8
         {
             InitializeComponent();
             Sound_Count = SoundDataBase.Get_Count();
-            var result = SoundDataBase.Get_Data();
             for (int i = 1; i <= Sound_Count; i++)
             {
-                New_Sound(result[0], result[1]);
-                SoundDataBase.Create_TempSound(result[2]);
-                SoundStuff.Upload_HotKey(result[1], result[0]);
+                New_Sound(Result[0], Result[1], Result[2]);
+                SoundDataBase.Create_TempSound(Result[2]);
+                SoundStuff.Upload_HotKey(Result[1], Result[0]);
             }
             HotkeysManager.SetupSystemHook();
             Closing += MainWindow_Closing;
         }
+        private static List<List<string>> result = SoundDataBase.Get_Data();
+
         SoundStuff soundStuff = new SoundStuff();
         Key SoundKey = Key.NoName;
         private bool keyNeeded;
@@ -41,7 +42,10 @@ namespace SoundPad_WPF_8
         Button CurrentBtn = new Button();
         int Sound_Count = 0;
         BrushConverter bc = new BrushConverter();
-        public void New_Sound(List<string> linkData = null, List<string> keyData = null)
+
+        public static List<List<string>> Result { get => result; set => result = value; }
+
+        public void New_Sound(List<string> linkData = null, List<string> keyData = null, List<string> sound_ID = null)
         {
             System.Windows.Controls.Label sound_link = new System.Windows.Controls.Label();
             sound_link.VerticalAlignment = VerticalAlignment.Center;
@@ -117,7 +121,7 @@ namespace SoundPad_WPF_8
             soundStuff.Children.Add(border);
             if (linkData != null)
             {
-                soundStuff.Link = linkData[0];
+                soundStuff.Link = @"..\..\..\TempSounds\Temp_Sound_" + sound_ID + ".mp3";
             }
             if (keyData != null)
             {

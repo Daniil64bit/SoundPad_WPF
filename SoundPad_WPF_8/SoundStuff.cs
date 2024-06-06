@@ -12,6 +12,8 @@ using NAudio.CoreAudioApi;
 using System.Windows.Documents;
 using Sound_DataBase;
 using System.Xml.Linq;
+using System.Reflection;
+using System.IO;
 
 
 namespace SoundPad_WPF_8
@@ -29,6 +31,7 @@ namespace SoundPad_WPF_8
         public int MyID { get => myID; set => myID = value; }
         public string Link { get => _link; set => _link = value; }
         public Key Key { get => key; set => key = value; }
+
         public static MediaPlayer player = new MediaPlayer();
 
         public SoundStuff()
@@ -42,26 +45,28 @@ namespace SoundPad_WPF_8
         }
         public static void New_HotKey(Key HotKey, string HotKeyLink = "")
         {
-            WaveOut waveOut = new WaveOut() {DeviceNumber = 0 };
+            WaveOut waveOut = new WaveOut() {DeviceNumber = 1 };
             IWavePlayer wavePlayer = new WasapiOut(NAudio.CoreAudioApi.AudioClientShareMode.Shared, 100);
             HotkeysManager.AddHotkey(ModifierKeys.None, HotKey, () =>
             {
                 PlaybackState playback = waveOut.PlaybackState;
-                HotKeyLink = @"C:\Users\Danill64bit\Documents\GitHub\SoundPad_WPF\TempSounds\Temp_Sound.mp3";
                 AudioFileReader audioFileReader = new AudioFileReader(HotKeyLink);
                 audioFileReader.Volume = 0.5f;
                 waveOut.Init(audioFileReader);
-                Uri MediaSource = new Uri(HotKeyLink);
+                string exeFile = new Uri(Assembly.GetEntryAssembly().CodeBase).AbsolutePath;
+                string Dir = Path.GetDirectoryName(exeFile);
+                string path = Path.GetFullPath(Path.Combine(Dir, HotKeyLink));
+                Uri MediaSource = new Uri(path);
                 if (playback == PlaybackState.Playing)
                 {
                     waveOut.Stop();
-                    //player.Stop();
+                    player.Stop();
                 }
                 else if (playback == PlaybackState.Stopped)
                 {
                     player.Open(MediaSource);
                     waveOut.Play();
-                    //player.Play();
+                    player.Play();
                 }
                 
             });
@@ -79,10 +84,10 @@ namespace SoundPad_WPF_8
             string HotKeyLink = SoundDataBase.GetSilentSoundPath();
             if (HotKeyLinkData != null)
             {
-                HotKeyLink = @"C:\Users\Danill64bit\Documents\GitHub\SoundPad_WPF\TempSounds\Temp_Sound.mp3";
+                HotKeyLink = @"..\..\..\TempSounds\Temp_Sound_" + ID + ".mp3";
                 HotKeyLinkData.RemoveAt(0);
             }
-            WaveOut waveOut = new WaveOut() { DeviceNumber = 0 };
+            WaveOut waveOut = new WaveOut() { DeviceNumber = 1 };
             IWavePlayer wavePlayer = new WasapiOut(NAudio.CoreAudioApi.AudioClientShareMode.Shared, 100);
             HotkeysManager.AddHotkey(ModifierKeys.None, HotKey, () =>
             {
@@ -90,17 +95,20 @@ namespace SoundPad_WPF_8
                 AudioFileReader audioFileReader = new AudioFileReader(HotKeyLink);
                 waveOut.Init(audioFileReader);
                 audioFileReader.Volume = 0.5f;
-                Uri MediaSource = new Uri(HotKeyLink);
+                string exeFile = new Uri(Assembly.GetEntryAssembly().CodeBase).AbsolutePath;
+                string Dir = Path.GetDirectoryName(exeFile);
+                string path = Path.GetFullPath(Path.Combine(Dir, HotKeyLink));
+                Uri MediaSource = new Uri(path);
                 if (playback == PlaybackState.Playing)
                 {
                     waveOut.Stop();
-                    //player.Stop();
+                    player.Stop();
                 }
                 else if (playback == PlaybackState.Stopped)
                 {
                     player.Open(MediaSource);
                     waveOut.Play();
-                    //player.Play();
+                    player.Play();
                 }
             });
             HotKeyLinks.Add(HotKeyLink);
