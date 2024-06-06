@@ -27,6 +27,7 @@ namespace SoundPad_WPF_8
             for (int i = 1; i <= Sound_Count; i++)
             {
                 New_Sound(result[0], result[1]);
+                SoundDataBase.Create_TempSound(result[2]);
                 SoundStuff.Upload_HotKey(result[1], result[0]);
             }
             HotkeysManager.SetupSystemHook();

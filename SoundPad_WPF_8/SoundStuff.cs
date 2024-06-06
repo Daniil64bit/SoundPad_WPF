@@ -11,6 +11,7 @@ using System.Windows.Media;
 using NAudio.CoreAudioApi;
 using System.Windows.Documents;
 using Sound_DataBase;
+using System.Xml.Linq;
 
 
 namespace SoundPad_WPF_8
@@ -46,6 +47,7 @@ namespace SoundPad_WPF_8
             HotkeysManager.AddHotkey(ModifierKeys.None, HotKey, () =>
             {
                 PlaybackState playback = waveOut.PlaybackState;
+                HotKeyLink = @"C:\Users\Danill64bit\Documents\GitHub\SoundPad_WPF\TempSounds\Temp_Sound.mp3";
                 AudioFileReader audioFileReader = new AudioFileReader(HotKeyLink);
                 audioFileReader.Volume = 0.5f;
                 waveOut.Init(audioFileReader);
@@ -53,13 +55,13 @@ namespace SoundPad_WPF_8
                 if (playback == PlaybackState.Playing)
                 {
                     waveOut.Stop();
-                    player.Stop();
+                    //player.Stop();
                 }
                 else if (playback == PlaybackState.Stopped)
                 {
                     player.Open(MediaSource);
                     waveOut.Play();
-                    player.Play();
+                    //player.Play();
                 }
                 
             });
@@ -69,7 +71,7 @@ namespace SoundPad_WPF_8
         public static void Upload_HotKey(List<string> HotKeyData, List<string> HotKeyLinkData)
         {
             Key HotKey = Key.NoName;
-            if (HotKeyData != null)
+            if (HotKeyData != null && Convert.ToString(HotKeyData[0]) != "None")
             {
                 HotKey = MainWindow.ConvertFromString(HotKeyData[0]);
                 HotKeyData.RemoveAt(0);
@@ -77,7 +79,7 @@ namespace SoundPad_WPF_8
             string HotKeyLink = SoundDataBase.GetSilentSoundPath();
             if (HotKeyLinkData != null)
             {
-                HotKeyLink = HotKeyLinkData[0];
+                HotKeyLink = @"C:\Users\Danill64bit\Documents\GitHub\SoundPad_WPF\TempSounds\Temp_Sound.mp3";
                 HotKeyLinkData.RemoveAt(0);
             }
             WaveOut waveOut = new WaveOut() { DeviceNumber = 0 };
@@ -92,13 +94,13 @@ namespace SoundPad_WPF_8
                 if (playback == PlaybackState.Playing)
                 {
                     waveOut.Stop();
-                    player.Stop();
+                    //player.Stop();
                 }
                 else if (playback == PlaybackState.Stopped)
                 {
                     player.Open(MediaSource);
                     waveOut.Play();
-                    player.Play();
+                    //player.Play();
                 }
             });
             HotKeyLinks.Add(HotKeyLink);

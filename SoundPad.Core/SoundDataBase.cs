@@ -12,6 +12,7 @@ using SoundPad_WPF_8;
 using System.Windows;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
+using System.Data.SqlClient;
 
 
 //namespace SoundPad_WPF_8.Sound_DataBase
@@ -19,6 +20,8 @@ namespace Sound_DataBase
 {
     public class SoundDataBase
     {
+        public static int SoundNumber = 0;
+        public static int ID = 0;
         public static string GetSilentSoundPath()
         {
             string relativePath = @"..\..\..\SoundPad.Core\SoundResource\silent.wav";
@@ -105,6 +108,7 @@ namespace Sound_DataBase
             {
                 List<string> LinkList = new List<string>();
                 List<string> KeyList = new List<string>();
+                List<string> SoundID = new List<string>();
                 List<List<string>> Sounds = new List<List<string>>();
                 string relativePath = @"..\..\..\SoundPad_DB.db";
                 string absolutePath = Path.GetFullPath(relativePath);
@@ -112,7 +116,7 @@ namespace Sound_DataBase
                 connection = new SQLiteConnection(connectionString);
                 connection.Open();
                 string sql = $"SELECT * FROM Sound_DB";
-                string soundLink = null, soundKey = null;
+                string soundLink = null, soundKey = null, soundID = null;
                 using (SQLiteCommand cmd = new SQLiteCommand(sql, connection))
                 {
                     using (SQLiteDataReader rdr = cmd.ExecuteReader())
@@ -121,13 +125,16 @@ namespace Sound_DataBase
                         {
                             soundLink = rdr.GetString(0);
                             LinkList.Add(soundLink);
-                            soundKey = rdr.GetString(1);
+                            soundKey = rdr.GetString(2);
                             KeyList.Add(soundKey);
+                            soundID = Convert.ToString(rdr.GetInt32(3));
+                            SoundID.Add(soundID);
                         }
                     }
                 }
                 Sounds.Add(LinkList);
                 Sounds.Add(KeyList);
+                Sounds.Add(SoundID);
                 return Sounds;
             }
             catch (SQLiteException ex)
@@ -135,6 +142,41 @@ namespace Sound_DataBase
                 Console.WriteLine($"Ошибка доступа к базе данных. Исключение: {ex.Message}");
             }
             return null;
+        }
+        public static void Create_TempSound(List<string> SoundID)
+        {
+            SQLiteConnection connection;
+            try
+            {
+                SoundNumber++;
+                string relativePath = @"..\..\..\SoundPad_DB.db";
+                string absolutePath = Path.GetFullPath(relativePath);
+                string connectionString = string.Format("Data Source = {0};Version=3; FailIfMissing=False", absolutePath);
+                connection = new SQLiteConnection(connectionString);
+                connection.Open();
+                string sql = $"SELECT * FROM Sound_DB";
+                string outputFilePath = @"..\..\..\TempSounds\Temp_Sound_" + Convert.ToString(SoundNumber) + ".mp3";
+                sql = $"SELECT Sound_Data FROM Sound_DB WHERE Sound_ID = {Convert.ToInt32(SoundID[ID])}";
+                using (SQLiteCommand cmd = new SQLiteCommand(sql, connection))
+                {
+                    using (SQLiteDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            byte[] fileData = File.ReadAllBytes(@"..\..\..\SoundPad.Core\SoundResource\NOT_a_rickroll.mp3");
+                            using (FileStream fs = new FileStream(outputFilePath, FileMode.Create, FileAccess.Write))
+                            {
+                                fs.Write(fileData, 0, fileData.Length);
+                            }
+                        }
+                    }
+                }
+                ID++;
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Ошибка доступа к базе данных. Исключение: {ex.Message}");
+            }
         }
         public static void Save_Sound(string sound_link, string sound_key, int sound_id)
         {
@@ -144,9 +186,15 @@ namespace Sound_DataBase
                 string relativePath = @"..\..\..\SoundPad_DB.db";
                 string absolutePath = Path.GetFullPath(relativePath);
                 string connectionString = string.Format("Data Source = {0};Version=3; FailIfMissing=False", absolutePath);
+                byte[] fileData;
+                using (FileStream fs = new FileStream(sound_link, FileMode.Open, FileAccess.Read))
+                {
+                    fileData = new byte[fs.Length];
+                    fs.Read(fileData, 0, (int)fs.Length);
+                }
                 connection = new SQLiteConnection(connectionString);
                 connection.Open();
-                string sql = $"INSERT INTO \"Sound_DB\" (Sound_Link, Sound_Key, Sound_ID) VALUES(\"{sound_link}\", \"{sound_key}\", \"{sound_id}\");";
+                string sql = $"INSERT INTO \"Sound_DB\" (Sound_Name, Sound_Data, Sound_Key, Sound_ID) VALUES(\"{sound_link}\", \"{fileData}\", \"{sound_key}\", \"{sound_id}\");";
                 using (SQLiteCommand cmd = new SQLiteCommand(sql, connection))
                 {
                     cmd.ExecuteNonQuery();
@@ -185,6 +233,5 @@ namespace Sound_DataBase
     public static class Test
     {
         public static bool one = true;
-
     }
 }

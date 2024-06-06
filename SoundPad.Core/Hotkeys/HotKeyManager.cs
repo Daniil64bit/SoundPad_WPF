@@ -124,7 +124,7 @@ namespace SoundPad_WPF_8.HotKeys
             {
                 foreach (GlobalHotkey hotkey in Hotkeys)
                 {
-                    if (Keyboard.Modifiers == hotkey.Modifier && Keyboard.IsKeyDown(hotkey.Key))
+                    if (Keyboard.Modifiers == hotkey.Modifier)
                     {
                         if (hotkey.CanExecute)
                         {
