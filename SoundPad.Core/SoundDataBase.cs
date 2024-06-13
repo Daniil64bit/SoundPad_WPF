@@ -154,6 +154,7 @@ namespace Sound_DataBase
                 string connectionString = string.Format("Data Source = {0};Version=3; FailIfMissing=False", absolutePath);
                 connection = new SQLiteConnection(connectionString);
                 connection.Open();
+                string tempData;
                 string sql = $"SELECT Sound_Data FROM Sound_DB WHERE Sound_ID = {Convert.ToInt32(SoundID[ID])}";
                 string outputFilePath = @"..\..\..\TempSounds\Temp_Sound_" + Convert.ToString(SoundNumber) + ".mp3";
                 using (SQLiteCommand cmd = new SQLiteCommand(sql, connection))
@@ -162,10 +163,11 @@ namespace Sound_DataBase
                     {
                         while (rdr.Read())
                         {
-                            byte[] fileData = File.ReadAllBytes();
+                            tempData = rdr.GetString(0);
+                            byte[] byteArray = Convert.FromBase64String(tempData);
                             using (FileStream fs = new FileStream(outputFilePath, FileMode.Create, FileAccess.Write))
                             {
-                                fs.Write(fileData, 0, fileData.Length);
+                                fs.Write(byteArray, 0, byteArray.Length);
                             }
                         }
                     }
@@ -189,11 +191,10 @@ namespace Sound_DataBase
                 using (FileStream fs = new FileStream(sound_link, FileMode.Open, FileAccess.Read))
                 {
                     soundData = File.ReadAllBytes(sound_link);
-                    fs.Read(soundData, 0, (int)fs.Length);
                 }
                 connection = new SQLiteConnection(connectionString);
                 connection.Open();
-                string sql = $"INSERT INTO \"Sound_DB\" (Sound_Name, Sound_Data, Sound_Key, Sound_ID) VALUES(\"{sound_link}\", \"{soundData}\", \"{sound_key}\", \"{sound_id}\");";
+                string sql = $"INSERT INTO \"Sound_DB\" (Sound_Name, Sound_Data, Sound_Key, Sound_ID) VALUES(\"{sound_link}\", \"{Convert.ToBase64String(soundData)}\", \"{sound_key}\", \"{sound_id}\");";
                 using (SQLiteCommand cmd = new SQLiteCommand(sql, connection))
                 {
                     cmd.ExecuteNonQuery();

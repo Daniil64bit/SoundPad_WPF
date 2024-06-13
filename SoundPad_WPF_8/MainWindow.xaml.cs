@@ -9,10 +9,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Sound_DataBase;
+using System.IO;
 using System.Data.SQLite;
 using System.Reflection.Emit;
 using System.Collections.Generic;
 using NAudio.CoreAudioApi;
+using System.Reflection;
 
 
 namespace SoundPad_WPF_8
@@ -153,7 +155,10 @@ namespace SoundPad_WPF_8
                 {
                     if (soundStuff.Link != "")
                     {
-                        Uri MediaSource = new Uri(soundStuff.Link);
+                        string exeFile = new Uri(Assembly.GetEntryAssembly().CodeBase).AbsolutePath;
+                        string Dir = System.IO.Path.GetDirectoryName(exeFile);
+                        string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Dir, soundStuff.Link));
+                        Uri MediaSource = new Uri(path);
                         player.Open(MediaSource);
                         player.Play();
                     }
