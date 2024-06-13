@@ -45,7 +45,7 @@ namespace SoundPad_WPF_8
         }
         public static void New_HotKey(Key HotKey, string HotKeyLink = "")
         {
-            WaveOut waveOut = new WaveOut() {DeviceNumber = 1 };
+            WaveOut waveOut = new WaveOut() {DeviceNumber = 0 };
             IWavePlayer wavePlayer = new WasapiOut(NAudio.CoreAudioApi.AudioClientShareMode.Shared, 100);
             HotkeysManager.AddHotkey(ModifierKeys.None, HotKey, () =>
             {
@@ -87,7 +87,7 @@ namespace SoundPad_WPF_8
                 HotKeyLink = @"..\..\..\TempSounds\Temp_Sound_" + ID + ".mp3";
                 HotKeyLinkData.RemoveAt(0);
             }
-            WaveOut waveOut = new WaveOut() { DeviceNumber = 1 };
+            WaveOut waveOut = new WaveOut() { DeviceNumber = 0 };
             IWavePlayer wavePlayer = new WasapiOut(NAudio.CoreAudioApi.AudioClientShareMode.Shared, 100);
             HotkeysManager.AddHotkey(ModifierKeys.None, HotKey, () =>
             {

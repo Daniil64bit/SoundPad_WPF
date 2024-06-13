@@ -143,7 +143,7 @@ namespace Sound_DataBase
             }
             return null;
         }
-        public static void Create_TempSound(List<string> SoundID)
+        public static void Create_TempSound(int SoundID)
         {
             SQLiteConnection connection;
             try
@@ -155,7 +155,7 @@ namespace Sound_DataBase
                 connection = new SQLiteConnection(connectionString);
                 connection.Open();
                 string tempData;
-                string sql = $"SELECT Sound_Data FROM Sound_DB WHERE Sound_ID = {Convert.ToInt32(SoundID[ID])}";
+                string sql = $"SELECT Sound_Data FROM Sound_DB WHERE Sound_ID = {SoundID}";
                 string outputFilePath = @"..\..\..\TempSounds\Temp_Sound_" + Convert.ToString(SoundNumber) + ".mp3";
                 using (SQLiteCommand cmd = new SQLiteCommand(sql, connection))
                 {
@@ -188,7 +188,7 @@ namespace Sound_DataBase
                 string absolutePath = Path.GetFullPath(relativePath);
                 string connectionString = string.Format("Data Source = {0};Version=3; FailIfMissing=False", absolutePath);
                 byte[] soundData;
-                using (FileStream fs = new FileStream(sound_link, FileMode.Open, FileAccess.Read))
+                using (FileStream fs = new FileStream(sound_link, FileMode.OpenOrCreate, FileAccess.Read))
                 {
                     soundData = File.ReadAllBytes(sound_link);
                 }

@@ -15,6 +15,8 @@ using System.Reflection.Emit;
 using System.Collections.Generic;
 using NAudio.CoreAudioApi;
 using System.Reflection;
+using NAudio.Gui;
+using System.Collections;
 
 
 namespace SoundPad_WPF_8
@@ -28,7 +30,7 @@ namespace SoundPad_WPF_8
             for (int i = 1; i <= Sound_Count; i++)
             {
                 New_Sound(Result[0], Result[1], Result[2]);
-                SoundDataBase.Create_TempSound(Result[2]);
+                SoundDataBase.Create_TempSound(Convert.ToInt32(Result[2][0]));
                 SoundStuff.Upload_HotKey(Result[1], Result[0]);
             }
             HotkeysManager.SetupSystemHook();
@@ -321,6 +323,7 @@ namespace SoundPad_WPF_8
             {
                 Sound_Count++;
                 SoundDataBase.Save_Sound(soundStuff.Link, Convert.ToString(soundStuff.Key), soundStuff.MyID);
+                SoundDataBase.Create_TempSound(soundStuff.MyID);
             }
         }
 
@@ -328,6 +331,15 @@ namespace SoundPad_WPF_8
         {
             HotkeysManager.ShutdownSystemHook();
             SoundDataBase.Update_Count(Sound_Count);
+            string PathToClear = @"..\..\..\TempSounds";
+            foreach (string file in Directory.GetFiles(PathToClear))
+            {
+                using (FileStream fs = File.Open(file, FileMode.OpenOrCreate))
+                {
+                    fs.SetLength(0);
+                }
+                File.Delete(file);
+            }
         }
 
         private void Sounds_Btn_Click(object sender, RoutedEventArgs e)
